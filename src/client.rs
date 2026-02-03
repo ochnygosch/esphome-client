@@ -290,7 +290,11 @@ impl EspHomeClientBuilder {
                 }
             }
         }
-        Self::authenticate(stream, password).await
+        if password.is_some() {
+            Self::authenticate(stream, password).await
+        } else {
+            Ok(())
+        }
     }
 
     #[cfg(not(any(
